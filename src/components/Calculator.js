@@ -62,6 +62,13 @@ export class Calculator extends Component {
         })
         return;
       case "plus":
+        if (this.state.inProgress) {
+          this.setState({
+            inProgress: true,
+            operation: "plus",
+          })
+          return;
+        }
         if (this.state.operandeB.length > 0) {
           let result = this.getOperationResult();
           this.setState({
@@ -79,6 +86,13 @@ export class Calculator extends Component {
         });
         return;
         case "min":
+          if (this.state.inProgress) {
+            this.setState({
+              inProgress: true,
+              operation: "min",
+            })
+            return;
+          }
           if (this.state.operandeB.length > 0) {
             let result = this.getOperationResult();
             this.setState({
