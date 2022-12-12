@@ -51,6 +51,16 @@ export class Calculator extends Component {
           this.addNumber(".");
         }
         return;
+      case "egal":
+        if (this.state.operandeB.length === 0) return;
+        let result = this.getOperationResult();
+        this.setState({
+          operandeA: result,
+          operandeB: "",
+          inProgress: true,
+          operation: "",
+        })
+        return;
       case "plus":
         if (this.state.operandeB.length > 0) {
           let result = this.getOperationResult();
