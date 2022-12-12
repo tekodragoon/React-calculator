@@ -8,9 +8,10 @@
 
 .calc {
   width: fit-content;
-  margin: auto;
+  margin: 20px auto;
   background-color: #555;
-  border-radius: 5px;
+  border-radius: calc(var(--button-size) * 0.15);
+  padding: calc(var(--button-size) * 0.25);
 }
 
 .calc-btn {
@@ -30,4 +31,11 @@
 .spc-key {
   background-color: orange;
   color: white;
+}
+
+.calc-screen {
+  height: var(--button-size);
+  margin: calc(var(--button-size) * 0.25);
+  background-color: aquamarine;
+  color: #000;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CalcButton from "./CalcButton";
+import CalcScreen from "./CalcScreen";
 
 export class Calculator extends Component {
   renderNumber(i) {
@@ -50,6 +51,7 @@ export class Calculator extends Component {
   render() {
     return (
       <div className="calc">
+        <CalcScreen />
         <div>
           {this.renderNumber(7)}
           {this.renderNumber(8)}
