@@ -3,6 +3,15 @@ import CalcButton from "./CalcButton";
 import CalcScreen from "./CalcScreen";
 
 export class Calculator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      operandeA: "",
+      operandeB: "",
+      operation: null,
+    }
+  }
+
   renderNumber(i) {
     return (
       <CalcButton
@@ -25,9 +34,27 @@ export class Calculator extends Component {
     );
   }
 
-  addNumber(i) {}
+  addNumber(i) {
+    let actualOperande = this.state.operation ? "" : this.state.operandeA;
+    actualOperande += i.toString();
+    this.setState({
+      operandeA: actualOperande,
+      operation: null,
+    });
+  }
 
-  handleKey(key) {}
+  handleKey(key) {
+    switch (key) {
+      case "coma":
+        if (!this.state.operandeA.includes(".")) {
+          this.addNumber(".");
+        }
+        break;
+    
+      default:
+        break;
+    }
+  }
 
   keyToString(key) {
     switch (key) {
@@ -51,7 +78,9 @@ export class Calculator extends Component {
   render() {
     return (
       <div className="calc">
-        <CalcScreen />
+        <CalcScreen 
+          text={this.state.operandeA}
+        />
         <div>
           {this.renderNumber(7)}
           {this.renderNumber(8)}
