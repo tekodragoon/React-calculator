@@ -8,7 +8,8 @@ export class Calculator extends Component {
     this.state = {
       operandeA: "",
       operandeB: "",
-      operation: null,
+      operation: "",
+      inProgress: false,
     }
   }
 
@@ -35,11 +36,11 @@ export class Calculator extends Component {
   }
 
   addNumber(i) {
-    let actualOperande = this.state.operation ? "" : this.state.operandeA;
+    let actualOperande = this.state.inProgress ? "" : this.state.operandeA;
     actualOperande += i.toString();
     this.setState({
       operandeA: actualOperande,
-      operation: null,
+      inProgress: false,
     });
   }
 
@@ -49,10 +50,57 @@ export class Calculator extends Component {
         if (!this.state.operandeA.includes(".")) {
           this.addNumber(".");
         }
-        break;
-    
+        return;
+      case "plus":
+        if (this.state.operandeB.length > 0) {
+          let result = this.getOperationResult();
+          this.setState({
+            operandeA: result,
+            operandeB: result,
+            inProgress: true,
+            operation: "plus",
+          })
+          return;
+        }
+        this.setState({
+          operandeB: this.state.operandeA,
+          inProgress: true,
+          operation: "plus",
+        });
+        return;
+        case "min":
+          if (this.state.operandeB.length > 0) {
+            let result = this.getOperationResult();
+            this.setState({
+              operandeA: result,
+              operandeB: result,
+              inProgress: true,
+              operation: "min",
+            })
+            return;
+          }
+          this.setState({
+            operandeB: this.state.operandeA,
+            inProgress: true,
+            operation: "min",
+          });
+          return;
       default:
-        break;
+        return;
+    }
+  }
+
+  getOperationResult() {
+    let result;
+    switch (this.state.operation) {
+      case "plus":
+        result = parseFloat(this.state.operandeB) + parseFloat(this.state.operandeA);
+        return result.toString();
+      case "min":
+        result = parseFloat(this.state.operandeB) - parseFloat(this.state.operandeA);
+        return result.toString();
+      default:
+        return "";
     }
   }
 
