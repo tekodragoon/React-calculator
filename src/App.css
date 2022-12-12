@@ -38,4 +38,8 @@
   margin: calc(var(--button-size) * 0.25);
   background-color: aquamarine;
   color: #000;
+  font-size: var(--button-size);
+  line-height: var(--button-size);
+  font-family: 'Roboto', sans-serif;
+  text-align: end;
 }
