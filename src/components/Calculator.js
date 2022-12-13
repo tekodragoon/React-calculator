@@ -118,14 +118,25 @@ export class Calculator extends Component {
     let result;
     switch (this.state.operation) {
       case "plus":
-        result = parseFloat(this.state.operandeB) + parseFloat(this.state.operandeA);
-        return result.toString();
+        result = Number(this.state.operandeB) + Number(this.state.operandeA);
+        return this.reduceFloat(result);
       case "min":
-        result = parseFloat(this.state.operandeB) - parseFloat(this.state.operandeA);
-        return result.toString();
+        result = Number(this.state.operandeB) - Number(this.state.operandeA);
+        return this.reduceFloat(result);
       default:
         return "";
     }
+  }
+
+  reduceFloat(f) {
+    let a = this.state.operandeA.split(".");
+    let b = this.state.operandeB.split(".");
+    let maxDecimal = (a.length > 1 ? a[1].length : 0) + (b.length > 1 ? b[1].length : 0);
+    let res = f.toFixed(maxDecimal).toString();
+    while(res[res.length - 1] === "0") {
+      res = res.slice(0, -1);
+    }
+    return res;
   }
 
   keyToString(key) {
