@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CalcButton from "./CalcButton";
 import CalcScreen from "./CalcScreen";
+import ResetButton from "./ResetButton";
 
 export class Calculator extends Component {
   constructor(props) {
@@ -37,13 +38,28 @@ export class Calculator extends Component {
     );
   }
 
+  renderResetBtn(key) {
+    return (
+      <ResetButton
+        key={"key" + key}
+        text={this.keyToString(key)}
+        func={() => this.handleKey(key)}
+      />
+    );
+  }
+
   addNumber(i) {
-    let actualOperande = this.state.inProgress ? "" : this.state.operandeA;
+    let actualOperande =
+      this.state.inProgress || this.state.operandeA === "0"
+        ? ""
+        : this.state.operandeA;
     actualOperande += i.toString();
     this.setState({
       operandeA: actualOperande,
       inProgress: false,
     });
+    let resetBtn = document.getElementById("reset-btn");
+    resetBtn.textContent = "C";
   }
 
   handleKey(key) {
@@ -59,9 +75,10 @@ export class Calculator extends Component {
           this.state.operandeC.length === 0
         )
           return;
-        let result = this.state.operationAC !== ""
-          ? this.getFullResult()
-          : this.getOperationABResult();
+        let result =
+          this.state.operationAC !== ""
+            ? this.getFullResult()
+            : this.getOperationABResult();
 
         this.setState({
           operandeA: result,
@@ -81,9 +98,10 @@ export class Calculator extends Component {
           return;
         }
         if (this.state.operandeB.length > 0 || this.state.operationAC !== "") {
-          let result = this.state.operationAC !== ""
-          ? this.getFullResult()
-          : this.getOperationABResult();
+          let result =
+            this.state.operationAC !== ""
+              ? this.getFullResult()
+              : this.getOperationABResult();
           this.setState({
             operandeA: result,
             operandeB: result,
@@ -109,9 +127,10 @@ export class Calculator extends Component {
           return;
         }
         if (this.state.operandeB.length > 0 || this.state.operationAC !== "") {
-          let result = this.state.operationAC !== ""
-          ? this.getFullResult()
-          : this.getOperationABResult();
+          let result =
+            this.state.operationAC !== ""
+              ? this.getFullResult()
+              : this.getOperationABResult();
           this.setState({
             operandeA: result,
             operandeB: result,
@@ -178,6 +197,25 @@ export class Calculator extends Component {
           operationAC: "div",
         });
         return;
+      case "reset":
+        let resetBtn = document.getElementById("reset-btn");
+        if (resetBtn.textContent === "AC") {
+          this.setState({
+            operandeA: "",
+            operandeB: "",
+            operandeC: "",
+            inProgress: false,
+            operationAB: "",
+            operationAC: "",
+          });
+        }
+        if (resetBtn.textContent === "C") {
+          this.setState({
+            operandeA: "0",
+          });
+          resetBtn.textContent = "AC";
+        }
+        break;
       default:
         return;
     }
@@ -265,7 +303,7 @@ export class Calculator extends Component {
     return (
       <div className="calc">
         <CalcScreen text={this.state.operandeA} />
-        <div>{this.renderSpecialKey("reset")}</div>
+        <div>{this.renderResetBtn("reset")}</div>
         <div>
           {this.renderNumber(7)}
           {this.renderNumber(8)}
