@@ -49,8 +49,10 @@ export class Calculator extends Component {
   }
 
   addNumber(i) {
+    let resetBtn = document.getElementById("reset-btn");
     let actualOperande =
-      this.state.inProgress || this.state.operandeA === "0"
+      this.state.inProgress ||
+      (this.state.operandeA === "0" && resetBtn.textContent === "AC")
         ? ""
         : this.state.operandeA;
     actualOperande += i.toString();
@@ -58,7 +60,6 @@ export class Calculator extends Component {
       operandeA: actualOperande,
       inProgress: false,
     });
-    let resetBtn = document.getElementById("reset-btn");
     resetBtn.textContent = "C";
   }
 
@@ -66,7 +67,10 @@ export class Calculator extends Component {
     switch (key) {
       case "coma":
         if (!this.state.operandeA.includes(".")) {
-          this.addNumber(".");
+          let resetBtn = document.getElementById("reset-btn");
+          resetBtn.textContent = "C";
+          let c = this.state.inProgress || this.state.operandeA.length === 0 ? "0." : ".";
+          this.addNumber(c);
         }
         return;
       case "egal":
@@ -220,11 +224,11 @@ export class Calculator extends Component {
         if (this.state.operandeA[0] === "-") {
           this.setState({
             operandeA: this.state.operandeA.slice(1),
-          })
+          });
         } else {
           this.setState({
             operandeA: "-" + this.state.operandeA,
-          })
+          });
         }
         break;
       default:
@@ -306,7 +310,7 @@ export class Calculator extends Component {
       case "reset":
         return "AC";
       case "inv":
-        return "+/-"
+        return "+/-";
       default:
         return "";
     }
