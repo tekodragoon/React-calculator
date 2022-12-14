@@ -2,8 +2,9 @@
 
 :root {
   --button-size: 60px;
-  --back-color: #ccc;
-  --text-color: #000;
+  --back-color: hsl(0, 0%, 80%);
+  --text-color: hsl(0, 0%, 0%);
+  --hover-color: hsl(0, 0%, 90%);
 }
 
 .calc {
@@ -12,6 +13,17 @@
   background-color: #555;
   border-radius: calc(var(--button-size) * 0.15);
   padding: calc(var(--button-size) * 0.25);
+  box-shadow: 2px 2px 4px hsl(0, 0%, 0%);
+}
+
+.calc-btn {
+  box-shadow: 3px 3px hsl(0, 0%, 0%),
+  inset 1px -1px hsl(0, 0%, 100%);
+}
+
+.calc-screen {
+  box-shadow: 3px 3px hsl(0, 0%, 0%), 
+    inset 3px 3px hsla(0, 37%, 88%, 0.6);
 }
 
 .calc-btn {
@@ -20,7 +32,7 @@
   width: var(--button-size);
   height: var(--button-size);
   margin: calc(var(--button-size) * 0.25);
-  border: 1px solid black;
+  border: 1px solid hsl(0, 0%, 0%);
   border-radius: calc(var(--button-size) * 0.15);
   background-color: var(--back-color);
   color: var(--text-color);
@@ -28,16 +40,29 @@
   line-height: var(--button-size);
 }
 
+.calc-btn:hover {
+  background-color: var(--hover-color);
+}
+
 .spc-key {
-  background-color: orange;
-  color: white;
+  background-color: hsl(40, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+
+.spc-key:hover {
+  background-color: hsl(40, 100%, 60%);
+}
+
+.calc-btn:active {
+  box-shadow: 1px 1px hsl(0, 0%, 0%),
+  inset 2px 2px hsla(0, 10%, 50%, 0.6);
 }
 
 .calc-screen {
   height: var(--button-size);
   margin: calc(var(--button-size) * 0.25);
   background-color: aquamarine;
-  color: #000;
+  color: hsl(0, 0%, 0%);
   font-size: calc(var(--button-size) * 0.5);
   line-height: var(--button-size);
   font-family: 'Roboto', sans-serif;
