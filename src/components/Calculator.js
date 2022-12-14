@@ -216,6 +216,17 @@ export class Calculator extends Component {
           resetBtn.textContent = "AC";
         }
         break;
+      case "inv":
+        if (this.state.operandeA[0] === "-") {
+          this.setState({
+            operandeA: this.state.operandeA.slice(1),
+          })
+        } else {
+          this.setState({
+            operandeA: "-" + this.state.operandeA,
+          })
+        }
+        break;
       default:
         return;
     }
@@ -294,6 +305,8 @@ export class Calculator extends Component {
         return "+";
       case "reset":
         return "AC";
+      case "inv":
+        return "+/-"
       default:
         return "";
     }
@@ -303,7 +316,10 @@ export class Calculator extends Component {
     return (
       <div className="calc">
         <CalcScreen text={this.state.operandeA} />
-        <div>{this.renderResetBtn("reset")}</div>
+        <div>
+          {this.renderResetBtn("reset")}
+          {this.renderSpecialKey("inv")}
+        </div>
         <div>
           {this.renderNumber(7)}
           {this.renderNumber(8)}
