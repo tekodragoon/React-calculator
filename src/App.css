@@ -24,7 +24,7 @@
   border-radius: calc(var(--button-size) * 0.15);
   background-color: var(--back-color);
   color: var(--text-color);
-  font-size: var(--button-size);
+  font-size: calc(var(--button-size) * 0.5);
   line-height: var(--button-size);
 }
 
@@ -38,8 +38,9 @@
   margin: calc(var(--button-size) * 0.25);
   background-color: aquamarine;
   color: #000;
-  font-size: var(--button-size);
+  font-size: calc(var(--button-size) * 0.5);
   line-height: var(--button-size);
   font-family: 'Roboto', sans-serif;
   text-align: end;
+  padding-right: 0.2rem;
 }
