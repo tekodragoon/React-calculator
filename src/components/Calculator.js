@@ -255,7 +255,7 @@ export class Calculator extends Component {
     switch (this.state.operationAC) {
       case "mult":
         result = Number(this.state.operandeC) * Number(this.state.operandeA);
-        return result;
+        return this.reduceFloat(result);
       case "div":
         result = Number(this.state.operandeC) / Number(this.state.operandeA);
         return result;
